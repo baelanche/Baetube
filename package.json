@@ -1,0 +1,10 @@
+{
+  "name": "baetube",
+  "version": "1.0.0",
+  "description": "Cloning Youtube with VanillaJS and NodeJS",
+  "main": "index.js",
+  "author": "baegyu",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
