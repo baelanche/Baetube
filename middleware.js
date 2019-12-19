@@ -1,12 +1,14 @@
 import multer from "multer";
 import routes from "./routes";
 
-export const multerVideo = multer({ dest: "uploads/videos/" });
+const multerVideo = multer({ dest: "uploads/videos/" });
+const multerAvatar = multer({ dest: "uploads/avatars/" });
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "BaeTube";
   res.locals.routes = routes;
-  res.locals.user = req.user || null;
+  //passport가 user object를 올려줌
+  res.locals.loggedUser = req.user || null;
   next();
 };
 
@@ -26,4 +28,6 @@ export const onlyPrivate = (req, res, next) => {
   }
 };
 
+//single("form.input.name")
 export const uploadVideo = multerVideo.single("videoFile");
+export const uploadAvatar = multerAvatar.single("avatar");
