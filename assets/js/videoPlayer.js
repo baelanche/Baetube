@@ -1,10 +1,12 @@
 const videoContainer = document.getElementById("jsVideoPlayer");
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
-const volumeBtn = document.getElementById("jsVolumnButton");
+const volumeBtn = document.getElementById("jsVolumeButton");
+const volumeIcon = document.querySelector("#jsVolumeButton i");
 const fullScreenBtn = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
+const volumeRange = document.getElementById("jsVolume");
 
 function handlePlayClick() {
   if (videoPlayer.paused) {
@@ -17,13 +19,21 @@ function handlePlayClick() {
   }
 }
 
-function handleVolumeClick() {
+function handleVolumeClick(event) {
   if (videoPlayer.muted) {
     videoPlayer.muted = false;
-    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    if (videoPlayer.volume >= 0.6) {
+      event.target.className = "fas fa-volume-up";
+    } else if (videoPlayer.volume >= 0.2) {
+      event.target.className = "fas fa-volume-down";
+    } else {
+      event.target.className = "fas fa-volume-off";
+    }
+    volumeRange.value = videoPlayer.volume;
   } else {
     videoPlayer.muted = true;
-    volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    volumeRange.value = 0;
+    event.target.className = "fas fa-volume-mute";
   }
 }
 
@@ -80,7 +90,7 @@ const formatDate = seconds => {
 };
 
 function getCurrentTime() {
-  currentTime.innerHTML = formatDate(videoPlayer.currentTime);
+  currentTime.innerHTML = formatDate(Math.floor(videoPlayer.currentTime));
 }
 
 function setTotalTime() {
@@ -88,11 +98,33 @@ function setTotalTime() {
   totalTime.innerHTML = totalTimeString;
 }
 
+function handleEnded() {
+  videoPlayer.currentTime = 0;
+  playBtn.innerHTML = '<i class="fas fa-play"></i>';
+}
+
+function handleDrag(event) {
+  const {
+    target: { value }
+  } = event;
+  videoPlayer.volume = value;
+  if (value >= 0.6) {
+    volumeIcon.className = "fas fa-volume-up";
+  } else if (value >= 0.2) {
+    volumeIcon.className = "fas fa-volume-down";
+  } else {
+    volumeIcon.className = "fas fa-volume-off";
+  }
+}
+
 function init() {
+  videoPlayer.volume = 1.0;
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
   fullScreenBtn.addEventListener("click", goFullScreen);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
+  videoPlayer.addEventListener("ended", handleEnded);
+  volumeRange.addEventListener("input", handleDrag);
 }
 
 if (videoContainer) {
