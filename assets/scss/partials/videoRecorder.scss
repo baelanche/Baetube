@@ -1,0 +1,28 @@
+.record-container {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 50px;
+  video {
+    background-color: $black;
+    width: 100%;
+  }
+
+  .mirror {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+  }
+
+  .videoOption {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-flow: initial;
+    justify-content: space-between;
+    select {
+      width: 120px;
+      border-radius: 5px;
+    }
+  }
+}

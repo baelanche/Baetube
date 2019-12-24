@@ -2,6 +2,19 @@ extends layouts/main
 
 block content
     .form-container
+        .record-container#jsRecordContainer
+            video.recorder#jsVideoPreview
+            .videoOption
+                select#jsMirror
+                    option(value="no") 좌/우 반전 안함
+                    option(value="yes") 좌/우 반전
+                select#jsExpress
+                    option(value="mp4") mp4
+                    option(value="wmv") wmv
+                    option(value="flv") flv
+                    option(value="webm") webm
+                span#jsDuration 00:00
+            button#jsRecordButton Start Recording
         form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data")
             div.fileUpload
                 label(for="file") Video File
