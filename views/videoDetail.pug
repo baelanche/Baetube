@@ -7,20 +7,33 @@ block content
             src: video.fileUrl
         })
         .video__info
-            if loggedUser && video.creator.id === loggedUser.id
-                a(href=routes.editVideo(video.id)) 
-                    button Edit Video
-            .video__author
-                |Uploaded by 
-                a(href=routes.userDetail(video.creator.id))=video.creator.name
             h5.video__title=video.title
-            if video.views === 1
-                span.video__views 1 view
-            else
-                span.video__views #{video.views} views
-            p.video__description=video.description
+                if loggedUser && video.creator.id === loggedUser.id
+                    a(href=routes.editVideo(video.id)) 
+                        button Edit Video
+            span.video__views 조회수 #{video.views}회 &nbsp; #{moment(video.createdAt).format('YYYY. MM. DD.')}
+            hr
+            .video__author
+                image.video__author-avatar(src=video.creator.avatarUrl)
+                span.video__author-name 
+                    a(href=routes.userDetail(video.creator.id))=video.creator.name
+            p.video__description#jsVideoDesc=video.description
+            hr
         .video__comments
-            if video.comments.length === 1
-                span.video__comments-number 1 comment
-            else
-                span.video__comments-number #{video.comments.length} comments
+            span.video__comments-number
+                span#jsCommentNumber 댓글 #{video.comments.length}개
+            form.add__comment#jsAddComment
+                if loggedUser && loggedUser !== null
+                    textarea(type="text", placeholder="Add a comment..", required)
+                else
+                    textarea(type="text", placeholder="Please try after login", readonly)
+                input(type="submit", value="등록")
+            ul.video__comments-list#jsCommentList
+                each comment in video.comments.reverse()
+                    li
+                        image.comment-avatar#jsCommentAvatar(src=comment.avatarUrl)
+                        .comment-information
+                            span#jsCommentName
+                                a(href=routes.userDetail(comment.creator)) #{comment.name} 
+                                span#jsCommentDate #{moment(comment.createdAt).format('YYYY. MM. DD. HH : mm')}
+                            span.comment-text#jsCommentText=comment.text

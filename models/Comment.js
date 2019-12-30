@@ -16,7 +16,9 @@ const CommentSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
-  }
+  },
+  name: String,
+  avatarUrl: String
 });
 
 const model = mongoose.model("Comment", CommentSchema);

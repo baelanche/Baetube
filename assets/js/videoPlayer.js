@@ -1,5 +1,3 @@
-import axios from "axios";
-
 const videoContainer = document.getElementById("jsVideoPlayer");
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
