@@ -2,15 +2,6 @@
 
 Nodejs, Express, VanillaJS
 
-## Pages:
+## Progress
 
-- [ ] Home
-- [ ] Join
-- [ ] Login
-- [x] Search
-- [ ] User Detail
-- [ ] Edit Profile
-- [ ] Change Password
-- [ ] Video Upload
-- [ ] Video Detail
-- [ ] Edit Video
+2021 Heroku update scheduled
