@@ -4,4 +4,7 @@ Nodejs, Express, VanillaJS
 
 ## Progress
 
-2021 Heroku update scheduled
+2021 
+Add comment remove function
+
+Heroku update scheduled
